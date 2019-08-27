@@ -1,9 +1,6 @@
 #Christopher Marotta
 #Endless Multiplication Quiz
 
-#Made a multiplication quiz that keeps going with a question if they wanna play again
-#Right = congratulations | wrong = tell answer
-
 #import stuff
 import random
 
@@ -28,4 +25,18 @@ while keepPlaying == "y":
 
 #display final score
 print("======Final Score======")
+print("Questions Attempted:", (totalQuestions-1))
+print("Questions Correct:", currScore)
+grade = currScore/(totalQuestions-1)
+if grade > .89:
+    print("You recieved an A with a score of", format(grade,"2.0%"))
+elif grade > .79:
+    print("You recieved a B with a score of", format(grade,"2.0%"))
+elif grade > .69:
+    print("You recieved a C with a score of", format(grade,"2.0%"))
+elif grade > .59:
+    print("You recieved a D with a score of", format(grade,"2.0%"))
+elif grade <= .59:
+    print("You recieved a F with a score of", format(grade,"2.0%"))
+    
         
