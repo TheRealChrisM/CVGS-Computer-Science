@@ -14,7 +14,7 @@ while (numIn != "n"):
         totalSum += eval(numIn)
         totalSumSquared +=eval(numIn)*eval(numIn)
 mean = totalSum/totalNums
-sd = math.sqrt((totalSumSquared - ((totalSum*totalSum)/totalSum))/(totalSum-1))
+sd = math.sqrt((totalSumSquared - ((totalSum*totalSum)/totalNums))/(totalNums-1))
 
 print("The mean is: ", mean, sep="")
 print("The Standard Deviation is: ", sd, sep="")
