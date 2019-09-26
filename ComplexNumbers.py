@@ -42,4 +42,9 @@ class ComplexNumbers:
         return(ComplexNumbers(realNums,imaginaryNums))
 
     def __truediv__(self,other):
-        
+        realMult = (self.getReal()*other.getReal()) + (self.getImaginary()*other.getImaginary())
+        realSquare = (other.getReal()**2) + (other.getImaginary()**2)
+        realCombined = realMult/realSquare
+        realImagCombined = self.getImaginary()*other.getReal() - self.getReal()*other.getImaginary()
+        realImagImagSquaredCombined = realImagCombined/realSquare
+        return ComplexNumbers(realCombined, realImagCombined)
