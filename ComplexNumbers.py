@@ -12,9 +12,11 @@ class ComplexNumbers:
 
     def setReal(self, newReal):
         self.__real = newReal
+        return
 
     def setImaginary(self, newImaginary):
         self.__imaginary = newImaginary
+        return
 
     def abs(self):
         a = self.getReal()
