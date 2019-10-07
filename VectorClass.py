@@ -7,6 +7,7 @@ class Vector:
     def __init__(self, xPointIn=0, yPointIn=0):
         self.__xPoint = xPointIn
         self.__yPoint = yPointIn
+        return
         
     #Returns the X component of a Vector
     def getX(self):
