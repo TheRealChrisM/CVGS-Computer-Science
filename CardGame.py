@@ -1,40 +1,60 @@
+#Christopher Marotta
+#October 8th, 2019
+#Description: Allows two players to play against each other in a "simplified Blackjack-ish game" along with  
+#             also having the framework needed to allow for more advanced card games to be developed.
+
 import random
 
+#A class which represents a player in the game. This class includes data representing their name, balance, and current hand.
 class Player:
+    #Initilizes the object with a name and balance. By default this creates a player with the name "First Last" who has a balance of $10.
     def __init__(self, fn="First", ln="Last", bal=10):
+        #Sets the name and balance equal to what was chosen when the object's initilizer was called.
         self.__firstName = fn
         self.__lastName = ln
         self.__balance = bal
+        #Initilizes a player's hand so that cards can be stored within it.
         self.__cardHand = []
         return
-    #Getter and Setter methods
+    
+    #This method returns the first name of the player.
     def getFirstName(self):
         return self.__firstName
 
+    #This method returns the last name of the player.
     def getLastName(self):
         return self.__lastName
 
+    #This method returns the number values of the cards in their hand. (Integers between 0 and 51)
     def getCardHand(self):
+        #Sets up a temporary list which will hold the number values of the cards.
         cardHandTemp = []
+        #Appends the number values to the temporary list.
         for i in range(len(self.__cardHand)):
             cardHandTemp.append(self.__cardHand[i].getNumber())
+        #Returns the completed list containing all card number values in a player's hand.
         return cardHandTemp
-
+    
+    #Returns the current balance of the player
     def getBalance(self):
         return self.__balance
 
+    #Sets a new balance for the player based on what is input into newBal.
     def setBalance(self, newBal):
         self.__balance = newBal
         return
 
+    #Sets a new first name for the player based on what is input into newName.
     def setFirstName(self, newName):
         self.__firstName = newName
         return
 
+    #Sets a new last name for the player based on what is input into newName.
     def setLastName(self, newName):
         self.__lastName = newName
         return
-    
+
+    #Rsets the cardHand list which represents the players hand.
     def discardHand(self):
         self.__cardHand.clear()
         return
@@ -46,26 +66,42 @@ class Player:
 
     #Returns the player's current hand
     def showHand(self):
+        #Begins with a new line to separate the cards from any other text.
         cardReturn = "\n"
+        #Looks at all cards in the cardHand list.
         for card in self.__cardHand:
+            #Adds each card in the cardHand list to a string variable.
             cardReturn += str(card) + "\n"
+        #Returns the string variable.
         return cardReturn
 
+    #Calculates the "value" of a players hand by adding up the face values of all the cards in their hand.
     def totalCardValue(self):
+        #Sets up a variable, cardValue, and sets it equal to 0.
         cardValue = 0
+        #Goes through each card in the player's hand.
         for card in self.__cardHand:
+            #Adds the value returned from the .getValue() function in the Card class to the cardValue variable.
             cardValue += card.getValue()
+        #Returns the total value of all the player's cards in their hand.
         return cardValue
-        
+
+#A class which represents a card in the game.
 class Card:
+    #Takes in a number between 0 and 51, then saves it to allow for it's use by functions specifically made for performing actions with the cards.
     def __init__(self, number):
+        #Saves the number of the card.
         self.__cardNum = number
 
+    #Returns the saved card number, between 0 and 51.
     def getNumber(self):
         return self.__cardNum
 
+    #Returns the "Value" of a card which is related to the face value of the card.
     def getValue(self):
+        #Divides the card's number by 13 and gets the remainder to isolate the information needed to get the suite of the card from it's face value.
         cardVal = self.getNumber()%13
+        #Adds one to the card to represent the fact that the cards are stored with a number between 0 and 51.
         return cardVal + 1
     
     #returns a string of the suit of the card
@@ -241,11 +277,26 @@ while((playerOne.getBalance()>0) and (playerTwo.getBalance()>0)):
                 startingPlayer.discardHand()
                 followingPlayer.discardHand()
             roundNo = roundNo + 1
+
+            print()
+            print(followingPlayer.getFirstName(), " here is your hand. ", startingPlayer.getFirstName(), " has bet ", betAmount, ".", sep="")
+            print("************************")
+            print(followingPlayer.showHand())
+            print("************************")
+            print()
         else:
             newBal = followingPlayer.getBalance() - 1
             followingPlayer.setBalance(newBal)
             startingPlayer.discardHand()
             followingPlayer.discardHand()
             roundNo = roundNo + 1
+
+            print()
+            print(followingPlayer.getFirstName(), " here is your hand. ", startingPlayer.getFirstName(), " has bet ", betAmount, ".", sep="")
+            print("************************")
+            print(followingPlayer.showHand())
+            print("************************")
+            print()
+            
     #else:
         #shuffle code
