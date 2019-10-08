@@ -223,7 +223,7 @@ print()
 #This is the while loop for the main game loop, which will continue to loop while the players both have a balance greater than zero. 
 while((playerOne.getBalance()>0) and (playerTwo.getBalance()>0)):
     #Ensures the round is less than or equal to 13 which means that the deck does not need to be shuffled yet.
-    if(roundNo<=13):
+    if(roundNo<13):
         #Determines that playerOne will start this round. This occurs on even numbered rounds.   
         if((roundNo%2)==0):
             #Sets the player who starts as the playerOne object.
@@ -394,11 +394,13 @@ while((playerOne.getBalance()>0) and (playerTwo.getBalance()>0)):
             print()
             
     else:
-        #Informs players that it is now time to shuffle the cards.
+        #Uses print lines to separate the shuffle statement from the rest of the game information.
         print()
+        #Informs players that it is now time to shuffle the cards.
         print("13 rounds have now passed, the cards will be shuffled.")
         print()
-
+        print()
+        
         #Runs the function which suffles the cards.
         shuffle()
 
