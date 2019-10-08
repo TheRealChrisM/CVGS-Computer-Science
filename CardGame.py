@@ -59,12 +59,12 @@ class Player:
         self.__cardHand.clear()
         return
 
-    #Adds a card to a player's hand
+    #Adds a card to a player's hand.
     def setCardHand(self, newVal):
         self.__cardHand.append(newVal)
         return
 
-    #Returns the player's current hand
+    #Returns the player's current hand.
     def showHand(self):
         #Begins with a new line to separate the cards from any other text.
         cardReturn = "\n"
@@ -92,6 +92,7 @@ class Card:
     def __init__(self, number):
         #Saves the number of the card.
         self.__cardNum = number
+        return
 
     #Returns the saved card number, between 0 and 51.
     def getNumber(self):
@@ -104,7 +105,7 @@ class Card:
         #Adds one to the card to represent the fact that the cards are stored with a number between 0 and 51.
         return cardVal + 1
     
-    #returns a string of the suit of the card
+    #returns a string of the suit of the card.
     def findSuit(self):
         #Gets rid of face value information through integer division.
         suitNo = self.getNumber()//13
@@ -123,7 +124,7 @@ class Card:
         #Returns the calculated string of the suit name for the card.
         return suitName
     
-    #returns a string of the face value of the card
+    #returns a string of the face value of the card.
     def findFace(self):
         #Gets rid of the suit value information through the modulus function. This adds one to translate from a range of 0-51 to 1-52.
         faceNo = (self.getNumber()+1)%13
@@ -170,7 +171,7 @@ def shuffle():
     for i in range(52):
         #Sets each index equal to false representing a shuffled deck.
         cardsDrawn[i] = False
-        return
+    return
     
 #Takes in a Player object along with a desired amount of cards and deals that amount of cards to the player.    
 def deal(cardList, numCards):
@@ -190,7 +191,7 @@ def deal(cardList, numCards):
             i = i-1
     return
 
-#Creates an empty list which will be used to track which cards have been drawn
+#Creates an empty list which will be used to track which cards have been drawn.
 cardsDrawn = []
 
 #Loops through indexes 0 to 51.
