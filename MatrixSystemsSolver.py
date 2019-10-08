@@ -4,19 +4,80 @@
 
 class matrix:
     def __init__(self, row, column):
+        self.__matrix = [row,column]
+        self.__row = len(self.__matrix)
+        self.__column = len(self.__matrix[0])
+
+    def getRow(self):
+        return self.__row
+
+    def getCol(self):
+        return self.__column
+
+    def getMatrix(self):
+        return self.__matrix
+
+    def setRow(self, newRow):
+        self.__row = len(newRow)
         return
-    
-    def getEntry():
+
+    def setCol(self, newCol):
+        self.__column = len(newCol)
         return
-    
-    def setEntry():
+
+    def getEntry(self, row, col):
+        return self.__matrix[row][col]
+
+    def setEntry(self, row, col, value):
+        self.__matrix[row][col] = value
         return
-    
-    def __mult__():
-        return
-    
-    def __str__():
-        return
+        
+    def determinant(self):
+        deter = (self.__matrix[0][0] * self.__matrix[1][1]) - (self.__matrix[0][1] * self.__matrix[1][0])
+        return deter
+
+    def canMultiply(self, other):
+        canMul = False
+        if self.getCol() == other.getRow():
+            canMul = True
+        return canMul
+
+
+    def __mul__(self, other):
+        rowOfNew = []
+        colOfNew = []
+        valToAppend = 0
+        if self.canMultiply(other):
+            #Make the lists to put into Matrix() that are the right sizes
+            for a in range(other.getCol()):
+                rowOfNew.append(a)
+            for b in range(self.getRow()):
+                colOfNew.append(b)
+            #Create the resulting matrix of the right dimensions
+            result = matrix(rowOfNew, colOfNew)
+            #iterate through rows of self
+            for i in range(self.getRow()):
+                #iterate through columns of other
+                for j in range(other.getCol()):
+                    valToAppend = 0
+                    #iterate through rows of other
+                    for k in range(other.getRow()):
+                        valToAppend += (self.getMatrix()[i][k] * other.getMatrix()[k][j])
+                        result.setEntry(i,j,valToAppend)
+
+        else:
+            result = None
+            print("Cannot be Multiplied")
+        return result
+
+    def __str__(self):
+        returnString = ""
+        for i in range(self.getRow()):
+            if i == 1:
+                returnString += "\n"
+            for j in range(self.getCol()):
+                returnString += (format(self.getEntry(i,j), "5.2f"))
+        return returnString
 #Checks to see if matrix is non-singular. Returns true if non-singular, false if singular.
 def DoesSolutionExist(matrixIn):
     determinantValue = matrixIn.determinant()
@@ -30,7 +91,7 @@ def DoesSolutionExist(matrixIn):
 #Calculates the solution of a system of equations which are put into matrix form.
 def SystemSolution(coefficientMatrix, constantMatrix):
     inverseCoefficientMatrix = Inverse(coefficientMatrix)
-    matrixOut = inverseCoefficentMatrix*constantMatrix
+    matrixOut = inverseCoefficientMatrix*constantMatrix
     return matrixOut
 
 #Returns the inverse of the matrix input as matrixIn into the function.
@@ -40,9 +101,9 @@ def Inverse(matrixIn):
     #Uses the determinant to find the coefficient used to calculate the inverse.
     coefficient = 1/determinantValue
     #Calculates the new row of the inverse matrix.
-    newRow = [(coefficient*matrixIn[1][1]), ((-1)*(coefficient*matrixIn[0][1]))]
+    newRow = [(coefficient*matrixIn.getEntry(1,1)), ((-1)*(coefficient*matrixIn.getEntry(0,1)))]
     #Calculates the new column of the inverse matrix.
-    newCol = [((-1)*(coefficient*matrixIn[1][0])), (coefficient*matrixIn[0][0])]
+    newCol = [((-1)*(coefficient*matrixIn.getEntry(1,0))), (coefficient*matrixIn.getEntry(0,0))]
     #Creates a new matrix.
     matrixOut = matrix(newRow, newCol)
     return matrixOut
@@ -63,10 +124,10 @@ cEqTwo = eval(input("What is the value of c? "))
 
 
 rowMatrixA = [xEqOne, yEqOne]
-colMatrixA = [xEqTwo, y,EqTwo]
+colMatrixA = [xEqTwo, yEqTwo]
 matrixA = matrix(rowMatrixA, colMatrixA)
 
-validMatrix = doesSolutionExist(matrixA)
+validMatrix = DoesSolutionExist(matrixA)
 
 rowMatrixC = [cEqOne]
 colMatrixC = [cEqTwo]
@@ -75,10 +136,11 @@ matrixC = matrix(rowMatrixC, colMatrixC)
 if validMatrix:
     result = SystemSolution(matrixA, matrixC)
 
-    print("Here is the resulting matrix: \n")
+    print("Here is the resulting matrix:")
     print(result)
-    print("Therefore the solution of ""x"" for this equation is ", result.getEntry(0,0)," and the solution for ""y"" is ", result.getEntry(1,0),".")
-
+    print("Therefore...")
+    print("x equals: ", format((result.getEntry(0,0)), ".2f"), sep="")
+    print("y equals: ", format((result.getEntry(1,0)), ".2f"), sep="")
 else:
     print("Sorry this is not a valid matrix.")
 
