@@ -3,8 +3,6 @@
 #Description: Allows two players to play against each other in a "simplified Blackjack-ish game" along with  
 #             also having the framework needed to allow for more advanced card games to be developed.
 
-#TODO:
-
 import random
 
 #A class which represents a player in the game. This class includes data representing their name, balance, and current hand.
