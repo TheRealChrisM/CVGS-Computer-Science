@@ -279,10 +279,10 @@ while((playerOne.getBalance()>0) and (playerTwo.getBalance()>0)):
             roundNo = roundNo + 1
 
             print()
-            print(followingPlayer.getFirstName(), " here is your hand. ", startingPlayer.getFirstName(), " has bet ", betAmount, ".", sep="")
-            print("************************")
-            print(followingPlayer.showHand())
-            print("************************")
+            print("-------------------")
+            print(playerOne.getFirstName()," ", playerOne.getLastName(), "'s Balance: ", playerOne.getBalance(),sep="")
+            print(playerTwo.getFirstName()," ", playerTwo.getLastName(), "'s Balance: ", playerTwo.getBalance(),sep="")
+            print("-------------------")
             print()
         else:
             newBal = followingPlayer.getBalance() - 1
@@ -292,11 +292,13 @@ while((playerOne.getBalance()>0) and (playerTwo.getBalance()>0)):
             roundNo = roundNo + 1
 
             print()
-            print(followingPlayer.getFirstName(), " here is your hand. ", startingPlayer.getFirstName(), " has bet ", betAmount, ".", sep="")
-            print("************************")
-            print(followingPlayer.showHand())
-            print("************************")
+            print("-------------------")
+            print(playerOne.getFirstName()," ", playerOne.getLastName(), "'s Balance: ", playerOne.getBalance(),sep="")
+            print(playerTwo.getFirstName()," ", playerTwo.getLastName(), "'s Balance: ", playerTwo.getBalance(),sep="")
+            print("-------------------")
             print()
             
-    #else:
-        #shuffle code
+    else:
+        print("Shuffling Cards!!!")
+        shuffle()
+        roundNo = 0
