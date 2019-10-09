@@ -44,7 +44,12 @@ class matrix:
             canMul = True
         return canMul
 
-
+    def scalarMul(self,k):
+        for r in range(self.getRow()):
+            for c in range(self.getCol()):
+                newEntry = k * self.getEntry(r,c)
+                self.setEntry(r,c,newEntry) 
+        
     def __mul__(self, other):
         rowOfNew = []
         colOfNew = []
@@ -76,7 +81,7 @@ class matrix:
         returnString = "\n"
         for i in range(self.getRow()):
             for j in range(self.getCol()):
-                returnString += (format(self.getEntry(i,j), "5.2f"))
+                returnString += (format(self.getEntry(i,j), ">7.2f"))
             returnString += "\n"
         return returnString
     
