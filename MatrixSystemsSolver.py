@@ -2,7 +2,9 @@
 #Lab G - Solving Systems of Equations with Matrix
 #October 8th, 2019
 
+#Matrix class used to create an object containing a 2D List which represents a matrix.
 class matrix:
+    #Creates the matrix object using the row and column input.
     def __init__(self, row, column):
         self.__matrix = [row,column]
         self.__row = len(self.__matrix)
@@ -71,13 +73,13 @@ class matrix:
         return result
 
     def __str__(self):
-        returnString = ""
+        returnString = "\n"
         for i in range(self.getRow()):
-            if i == 1:
-                returnString += "\n"
             for j in range(self.getCol()):
                 returnString += (format(self.getEntry(i,j), "5.2f"))
+            returnString += "\n"
         return returnString
+    
 #Checks to see if matrix is non-singular. Returns true if non-singular, false if singular.
 def DoesSolutionExist(matrixIn):
     determinantValue = matrixIn.determinant()
