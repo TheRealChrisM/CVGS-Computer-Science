@@ -48,7 +48,8 @@ class matrix:
         for r in range(self.getRow()):
             for c in range(self.getCol()):
                 newEntry = k * self.getEntry(r,c)
-                self.setEntry(r,c,newEntry) 
+                self.setEntry(r,c,newEntry)
+        return
         
     def __mul__(self, other):
         rowOfNew = []
