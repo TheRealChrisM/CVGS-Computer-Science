@@ -113,7 +113,11 @@ class Quiz:
             if (self.__submittedAnswers[i] == self.__questionsGenerated[2][i]):
                 self.__pointsCorrect += 1
         return self.__pointsCorrect
-            
+
+    def assignGrade(self, student, score):
+        
+        
+    def takeQuiz(self, student):        
             
     def __str__(self):
         self.__questionsGenerated = [[],[],[]]
