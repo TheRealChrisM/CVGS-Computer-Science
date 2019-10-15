@@ -115,10 +115,11 @@ class Quiz:
         return self.__pointsCorrect
 
     def assignGrade(self, student, score):
-        
+        return    
         
     def takeQuiz(self, student):        
-            
+        return
+    
     def __str__(self):
         self.__questionsGenerated = [[],[],[]]
         questionsGenerated = self.__questionsGenerated
