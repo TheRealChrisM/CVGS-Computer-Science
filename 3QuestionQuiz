@@ -1,0 +1,24 @@
+#Christopher Marotta
+#October 28th, 2019
+#3 Question Quiz: Radio Button (Multiple Choice), Entry Box, Drop Down
+from tkinter import *
+from tkinter import ttk
+
+numCorrect = 0
+
+window = Tk()
+questionFrame = Frame(window)
+qOne = IntVar()
+questionOneLabel = Label(questionFrame, text = "1) What is the formula for the area of a square?")
+questionOneChoiceA = Radiobutton(questionFrame, text="[A] 2*s*pi*(r^2)", variable = qOne, value = 1)
+questionOneChoiceB = Radiobutton(questionFrame, text="[B] s^2", variable = qOne, value = 2)
+questionOneChoiceC = Radiobutton(questionFrame, text="[C] 4s", variable = qOne, value = 3)
+questionOneChoiceD = Radiobutton(questionFrame, text="[D] s+2", variable = qOne, value = 4)
+questionOneLabel.grid(row = 0, column = 0)
+questionOneChoiceA.grid(row = 1, sticky = W, padx = 20)
+questionOneChoiceB.grid(row = 2, sticky = W, padx = 20)
+questionOneChoiceC.grid(row = 3, sticky = W, padx = 20)
+questionOneChoiceD.grid(row = 4, sticky = W, padx = 20)
+
+questionFrame.pack()
+window.mainloop()
