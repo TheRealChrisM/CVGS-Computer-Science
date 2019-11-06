@@ -1,0 +1,18 @@
+#Christopher Marotta
+#November 4th, 2019
+#Smiley Face (Animate a smiley face with 2 eyes, a mouth, nose)
+
+from tkinter import *
+
+window = Tk()
+window.title("Smiley Smiles")
+
+canvasWidth = 300
+canvasHeight = 300
+
+canvas = Canvas(window, width = canvasWidth, height = canvasHeight, bg = "white")
+canvas.pack()
+
+
+window.mainloop()
+
