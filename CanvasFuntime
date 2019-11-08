@@ -1,0 +1,22 @@
+#Christopher Marotta
+#November 7th, 2019
+#Create a yeild sign and a puzzle/Mr. PotatoHead
+
+from tkinter import *
+
+#<B1-Motion>'
+
+window = Tk()
+window.title("Interactive Canvas")
+
+canvasWidth = 1080
+canvasHeight = 720
+
+def animate():
+    return
+
+canvas = Canvas(window, width = canvasWidth, height = canvasHeight, bg = "white")
+canvas.pack()
+
+
+yieldTriangle = canvas.create_polygon(10,10,30,30,0,30)
