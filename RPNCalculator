@@ -1,0 +1,88 @@
+#Christopher Marotta
+#RPN Calculator Project
+#February 6th, 2020
+
+class StackNode:
+    def __init__(self, myData, myNext):
+        self.data = myData
+        self.next = myNext
+
+class Stack:
+    def __init__(self):
+        #Construct a new LinkedList. The first node and last node are the same. Size is 0        self.firstNode = LinkedListNode(None, None)
+        self.firstNode = None #LinkedListNode(None, None)
+        self.lastNode = self.firstNode
+        self.size = 0
+        return
+
+    def push(self, data):
+        #Add a node to the front of the list
+        node = LinkedListNode(data, None)
+        if self.firstNode == None: #.data == None:
+            self.firstNode = node
+            self.lastNode = node
+        else:
+            self.lastNode.next = node
+            self.lastNode = node
+        self.size += 1
+        return
+        
+    def pop(self):
+        #Remove a node from the end of the list
+        if self.size == 0:
+            print ("Linked List is empty")
+            rearData = None
+        else:
+            currentNode = self.firstNode
+            rearData = self.lastNode.data
+            # This is the case where we have only one node in the list
+            if currentNode.next == None:
+                self.firstNode = None #LinkedListNode(None, None)
+                self.lastNode = self.firstNode
+                self.size = self.size - 1
+            else:
+                while not(currentNode.next == self.lastNode):
+                    currentNode = currentNode.next
+                # Here there are more than one nodes in the list
+                self.lastNode = currentNode
+                self.size = self.size - 1
+        return rearData
+
+     def __str__(self):
+        currentNode =  self.firstNode
+        for i in range(self.size):
+            print (currentNode.data)
+            currentNode = currentNode.next
+        return "Reached end of list.\n"
+
+class RPNCalculator:
+    def __init__(self):
+        
+        return
+    def pressZero(self):
+        return
+    def pressOne(self):
+        return
+    def pressTwo(self):
+        return
+    def pressThree(self):
+        return
+    def pressFour(self):
+        return
+    def pressFive(self):
+        return
+    def pressSix(self):
+        return
+    def pressSeven(self):
+        return
+    def pressEight(self):
+        return
+    def pressNine(self):
+        return
+    def pressEnter(self):
+        return
+    def pressStore(self):
+        return
+    def pressRecall(self):
+        return
+    
