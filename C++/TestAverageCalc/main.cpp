@@ -3,6 +3,8 @@
 
 using namespace std;
 
+string getLetterGrade(int gradeInput);
+
 int main()
 {
     bool completed = false;
@@ -57,6 +59,27 @@ int main()
     }
 
     int returnVal = (curVal/curCount);
-    cout << returnVal;
+    string grade = getLetterGrade(returnVal);
+    cout << endl << "Your Score:" << endl << "[" << grade << "] " << returnVal << "%"<< endl;
     return 0;
+}
+
+string getLetterGrade(int gradeInput){
+    string letterGrade;
+    if (gradeInput >= 89.5){
+        letterGrade = "A";
+    }
+    else if (gradeInput >= 79.5){
+        letterGrade = "B";
+    }
+    else if (gradeInput >= 69.5){
+        letterGrade = "C";
+    }
+    else if (gradeInput >= 59.5){
+        letterGrade = "D";
+    }
+    else{
+        letterGrade = "F";
+    }
+    return letterGrade;
 }
