@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1582032044 source:c:\users\cmarotta\documents\github\cvgs-computer-science\c++\crapsgame\main.cpp
+	<iostream>
+	<stdlib.h>
+	<ctime>
+
