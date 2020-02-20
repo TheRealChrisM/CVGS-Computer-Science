@@ -36,29 +36,24 @@ int main()
   cout << root->next->x << endl;
   cout << root->next->next->x << endl;
   cout << root->next->next->next->x << endl << endl << endl;
-  cout << endl << endl << "OLD VAL FROM END: " << removeFromEnd() << endl << endl;
+  removeFromEnd();
   cout << root->x << endl;
   cout << root->next->x << endl;
   cout << root->next->next->x << endl << endl << endl;
-  cout << endl << endl << "OLD VAL FROM FRONT: " << removeFromFront() << endl << endl;
-  cout << root->x << endl;
-  cout << root->next->x << endl << endl << endl;
 
 
 }
 
 void addToFront(int val){
-    node *tmpRoot = root;
-    root = new node;
-    root->x = val;
-    root->next = tmpRoot;
-    //root->next
+       node *tmpRoot = root;
+       root = new node;
+       root->x = val;
+       root->next = tmpRoot;
+       //root->next
 }
 
 int removeFromFront(){
-    int oldVal = root->x;
-    root = root->next;
-    return oldVal;
+
 }
 
 void addToEnd(int val){
@@ -74,17 +69,9 @@ void addToEnd(int val){
 
 int removeFromEnd(){
     node *curPos = root;
-    int oldVal;
-    while(curPos->next != 0){
-        curPos = curPos->next;
-    }
-
-    oldVal = curPos->x;
-    curPos = root;
-
     while(curPos->next->next != 0){
         curPos = curPos->next;
     }
     curPos->next = 0;
-    return oldVal;
+
 }
