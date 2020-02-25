@@ -8,10 +8,8 @@ struct node {
 };
 
 node *root;
-void addToFront(int val);
-int removeFromFront();
-void addToEnd(int val);
-int removeFromEnd();
+int dequeue();
+void enqueue(int val);
 
 int main()
 {
@@ -27,35 +25,27 @@ int main()
   root->next->next = 0;
   cout << root->x << endl;
   cout << root->next->x << endl << endl << endl;
-  addToFront(6);
+  enqueue(6);
   cout << root->x << endl;
   cout << root->next->x << endl;
   cout << root->next->next->x << endl << endl << endl;
-  addToEnd(12);
+  enqueue(12);
   cout << root->x << endl;
   cout << root->next->x << endl;
   cout << root->next->next->x << endl;
   cout << root->next->next->next->x << endl << endl << endl;
-  cout << endl << endl << "OLD VAL FROM END: " << removeFromEnd() << endl << endl;
+  cout << endl << endl << "OLD VAL FROM FRONT: " << dequeue() << endl << endl;
   cout << root->x << endl;
   cout << root->next->x << endl;
   cout << root->next->next->x << endl << endl << endl;
-  cout << endl << endl << "OLD VAL FROM FRONT: " << removeFromFront() << endl << endl;
+  cout << endl << endl << "OLD VAL FROM FRONT: " << dequeue() << endl << endl;
   cout << root->x << endl;
   cout << root->next->x << endl << endl << endl;
 
 
 }
 
-void addToFront(int val){
-    node *tmpRoot = root;
-    root = new node;
-    root->x = val;
-    root->next = tmpRoot;
-    //root->next
-}
-
-int removeFromFront(){
+int dequeue(){
     int oldVal = 0;
     if ((root == 0) || (root -> next == 0)){
         root = 0;
@@ -63,12 +53,11 @@ int removeFromFront(){
     else{
         oldVal = root->x;
         root = root->next;
-
     }
     return oldVal;
 }
 
-void addToEnd(int val){
+void enqueue(int val){
     if (root != 0){
         node *curPos = root;
         while(curPos->next != 0){
@@ -84,31 +73,4 @@ void addToEnd(int val){
         root->x = val;
         root->next = 0;
     }
-}
-
-int removeFromEnd(){
-    int oldVal;
-    if (root == 0){
-        oldVal = -1;
-    }
-    else if (root->next == 0){
-        oldVal = root->x;
-        root = 0;
-    }
-    else{
-        node *curPos = root;
-
-        while(curPos->next != 0){
-            curPos = curPos->next;
-        }
-
-        oldVal = curPos->x;
-        curPos = root;
-
-        while(curPos->next->next != 0){
-            curPos = curPos->next;
-        }
-        curPos->next = 0;
-    }
-    return oldVal;
 }
