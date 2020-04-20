@@ -28,27 +28,20 @@ def f(x):
     return x**2
 
 def s(n):
-    for x in n: 
-        if x>0:
-            return (s(n-1))-(aRate*s(n-1)*i(n-1)*deltaTime)
-        else:
-            return 18223
-
+    returnArray = []
+    returnArray.append(18223)
+    for i in range (1,len(n)):
+        returnArray.append((s(n-1))-(aRate*s(n-1)*i(n-1)*deltaTime))
+    return returnArray
+    
 def r(n):
-    if n>0:
         return ((r(n-1))+(dRate*i(n-1))+(gRate*q(n-1)*deltaTime))
-    else:
-        return 0
+    
 def i(n):
-    if n>0:
         return ((i(n-1))+(aRate*s(n-1)*i(n-1))-(bRate*i(n-1))-(dRate*i(n-1)*deltaTime))
-    else:
-        return 11
+    
 def q(n):
-    if n>0:
         return ((q(n-1))+(bRate*i(n-1))-(gRate*q(n-1)*deltaTime))
-    else:
-        return 0
     
 def updateRate(val):
     global rateIncrease
