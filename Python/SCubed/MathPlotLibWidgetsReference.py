@@ -18,10 +18,38 @@ plt.subplots_adjust(left=0.25, bottom=0.25)
 a = 0
 b = 4
 n = 101
+aRate = 25*(10**-5)
+bRate = .1
+gRate = 1/6
+dRate = 1/6
+deltaTime = .01
 
 def f(x):
     return x**2
 
+def s(n):
+    for x in n: 
+        if x>0:
+            return (s(n-1))-(aRate*s(n-1)*i(n-1)*deltaTime)
+        else:
+            return 18223
+
+def r(n):
+    if n>0:
+        return ((r(n-1))+(dRate*i(n-1))+(gRate*q(n-1)*deltaTime))
+    else:
+        return 0
+def i(n):
+    if n>0:
+        return ((i(n-1))+(aRate*s(n-1)*i(n-1))-(bRate*i(n-1))-(dRate*i(n-1)*deltaTime))
+    else:
+        return 11
+def q(n):
+    if n>0:
+        return ((q(n-1))+(bRate*i(n-1))-(gRate*q(n-1)*deltaTime))
+    else:
+        return 0
+    
 def updateRate(val):
     global rateIncrease
     rateIncrease = val
@@ -80,8 +108,10 @@ def susceptibleGraph():
     
     #Displaying the control group.
     xControl = np.linspace(a,b,n)
-    yControl = f(xControl)
-    control, = ax.plot(xControl, yControl)
+    yControl = s(xControl)
+    #control, = ax.plot(xControl, yControl)
+    print(xControl)
+    print(yControl)
 
     #Displaying the experimental group.
     xExperimental = np.linspace(a, b, n)
