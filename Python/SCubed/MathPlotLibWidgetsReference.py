@@ -36,27 +36,29 @@ def forLoopy():
     rA[0] = 0
     iA[0] = 11
     qA[0] = 0
-    for x in range(1, n):
-        sA[x] = s(x)
+    for x in range(1, 19):
+        print(x)
         rA[x] = r(x)
-        iA[x] = i(x)
         qA[x] = q(x)
+        sA[x] = s(x)
+        iA[x] = i(x)
+        
+        
 
 def s(nVal):
-    print(nVal)
-    print(((sA[nVal-1])-(aRate*sA[nVal-1]*iA[nVal-1]*deltaTime)))
+    print("s",(((sA[nVal-1])-(aRate*sA[nVal-1]*iA[nVal-1]*deltaTime))))
     return ((sA[nVal-1])-(aRate*sA[nVal-1]*iA[nVal-1]*deltaTime))
     
 def r(n):
-    print(((rA[n-1])+(dRate*iA[n-1])+(gRate*qA[n-1]*deltaTime)))
+    print("r",(((rA[n-1])+(dRate*iA[n-1])+(gRate*qA[n-1]*deltaTime))))
     return ((rA[n-1])+(dRate*iA[n-1])+(gRate*qA[n-1]*deltaTime))
     
 def i(n):
-    print(((iA[n-1])+(aRate*sA[n-1]*iA[n-1])-(bRate*iA[n-1])-(dRate*iA[n-1]*deltaTime)))
+    print("i",(((iA[n-1])+(aRate*sA[n-1]*iA[n-1])-(bRate*iA[n-1])-(dRate*iA[n-1]*deltaTime))))
     return ((iA[n-1])+(aRate*sA[n-1]*iA[n-1])-(bRate*iA[n-1])-(dRate*iA[n-1]*deltaTime))
     
 def q(n):
-    print(((qA[n-1])+(bRate*iA[n-1])-(gRate*qA[n-1]*deltaTime)))
+    print("q",(((qA[n-1])+(bRate*iA[n-1])-(gRate*qA[n-1]*deltaTime))))
     return ((qA[n-1])+(bRate*iA[n-1])-(gRate*qA[n-1]*deltaTime))
     
 def updateRate(val):
