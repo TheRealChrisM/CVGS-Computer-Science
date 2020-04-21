@@ -23,25 +23,41 @@ bRate = .1
 gRate = 1/6
 dRate = 1/6
 deltaTime = .01
+sA = np.zeros(n)
+rA = np.zeros(n)
+iA = np.zeros(n)
+qA = np.zeros(n)
 
 def f(x):
     return x**2
 
-def s(n):
-    returnArray = []
-    returnArray.append(18223)
-    for i in range (1,len(n)):
-        returnArray.append((s(n-1))-(aRate*s(n-1)*i(n-1)*deltaTime))
-    return returnArray
+def forLoopy():
+    sA[0] = 18223
+    rA[0] = 0
+    iA[0] = 11
+    qA[0] = 0
+    for x in range(1, n):
+        sA[x] = s(x)
+        rA[x] = r(x)
+        iA[x] = i(x)
+        qA[x] = q(x)
+
+def s(nVal):
+    print(nVal)
+    print(((sA[nVal-1])-(aRate*sA[nVal-1]*iA[nVal-1]*deltaTime)))
+    return ((sA[nVal-1])-(aRate*sA[nVal-1]*iA[nVal-1]*deltaTime))
     
 def r(n):
-        return ((r(n-1))+(dRate*i(n-1))+(gRate*q(n-1)*deltaTime))
+    print(((rA[n-1])+(dRate*iA[n-1])+(gRate*qA[n-1]*deltaTime)))
+    return ((rA[n-1])+(dRate*iA[n-1])+(gRate*qA[n-1]*deltaTime))
     
 def i(n):
-        return ((i(n-1))+(aRate*s(n-1)*i(n-1))-(bRate*i(n-1))-(dRate*i(n-1)*deltaTime))
+    print(((iA[n-1])+(aRate*sA[n-1]*iA[n-1])-(bRate*iA[n-1])-(dRate*iA[n-1]*deltaTime)))
+    return ((iA[n-1])+(aRate*sA[n-1]*iA[n-1])-(bRate*iA[n-1])-(dRate*iA[n-1]*deltaTime))
     
 def q(n):
-        return ((q(n-1))+(bRate*i(n-1))-(gRate*q(n-1)*deltaTime))
+    print(((qA[n-1])+(bRate*iA[n-1])-(gRate*qA[n-1]*deltaTime)))
+    return ((qA[n-1])+(bRate*iA[n-1])-(gRate*qA[n-1]*deltaTime))
     
 def updateRate(val):
     global rateIncrease
@@ -101,10 +117,11 @@ def susceptibleGraph():
     
     #Displaying the control group.
     xControl = np.linspace(a,b,n)
-    yControl = s(xControl)
-    #control, = ax.plot(xControl, yControl)
+    yControl = f(xControl)
+    control, = ax.plot(xControl, yControl)
+    forLoopy()
     print(xControl)
-    print(yControl)
+    print(sA)
 
     #Displaying the experimental group.
     xExperimental = np.linspace(a, b, n)
