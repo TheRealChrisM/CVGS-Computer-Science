@@ -1,24 +1,20 @@
-#Christopher Marotta, William Adu-Jamfi, Aidan Horton, Clare Cocker, and Lauren Chase
-#April 20, 2020
-#S-Cubed H1N1 Graph
+#Christopher Marotta
+#March 27, 2019
+#MathPlotLib Widgets
 
-#Importing Libraries
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
 
-#Sets default values for MatPlotLib Widgets
 lineType = 1
 rateIncrease = 1.00
 
-#Setting up the graph.
+#Setting up for x
 fig, ax = plt.subplots()
 ax.set_title("H1N1 Infection Status")
 ax.set_xlabel("Time")
 ax.set_ylabel("People")
-plt.subplots_adjust(left=0.30, right=0.95, bottom=0.25)
-
-#Setting various rates and known values to be used later.
+plt.subplots_adjust(left=0.25, bottom=0.25)
 a = 0
 deltaTime = .01
 n = 10000
@@ -28,7 +24,6 @@ bRate = .1
 gRate = 1/6
 dRate = 1/6
 
-#Creates arrays for the equations to use in the models for the control and experimental datasets.
 sA = np.zeros(n)
 rA = np.zeros(n)
 iA = np.zeros(n)
@@ -38,7 +33,6 @@ rAExp = np.zeros(n)
 iAExp = np.zeros(n)
 qAExp = np.zeros(n)
 
-#Applies euler's method to the control equations.
 def euler():
     sA[0] = 18223
     rA[0] = 0
@@ -49,10 +43,8 @@ def euler():
         qA[x] = qA[x-1] + deltaTime * quarentinedEquation(iA[x-1], qA[x-1])
         sA[x] = sA[x-1] + deltaTime * susceptibleEquation(sA[x-1], iA[x-1])
         iA[x] = iA[x-1] + deltaTime * infectionEquation(sA[x-1], iA[x-1])
-    #Then moves over to calculate the experimental group.
     eulerExperimental()
 
-#Applies eulers method to the experimental equations.
 def eulerExperimental():
     sAExp[0] = 18223
     rAExp[0] = 0
@@ -237,9 +229,7 @@ def recoveredGraph():
     difference, = ax.plot(xDifference, yDifference)
     ax.legend([control,experimental,difference], ['Control','Experimental', 'Difference'])
 
-#Gets everything started by calculating the datasets before anything is graphed.
 euler()
-#Graphs the susceptible population.
 susceptibleGraph()
 
 axcolor = 'white'

@@ -40,10 +40,12 @@ qAExp = np.zeros(n)
 
 #Applies euler's method to the control equations.
 def euler():
+    #Sets up initial values for the arrays.
     sA[0] = 18223
     rA[0] = 0
     iA[0] = 11
     qA[0] = 0
+    #Begins actually applying Euler's method through a for loop.
     for x in range(1, n):
         rA[x] = rA[x-1] + deltaTime * recoveredEquation(iA[x-1], qA[x-1])
         qA[x] = qA[x-1] + deltaTime * quarentinedEquation(iA[x-1], qA[x-1])
@@ -54,45 +56,57 @@ def euler():
 
 #Applies eulers method to the experimental equations.
 def eulerExperimental():
+    #Sets up initial values for the arrays.
     sAExp[0] = 18223
     rAExp[0] = 0
     iAExp[0] = 11
     qAExp[0] = 0
     expBRate = bRate
+    #Begins actually applying Euler's method through a for loop.
     for x in range(1,n):
         rAExp[x] = rAExp[x-1] + deltaTime * recoveredEquation(iAExp[x-1], qAExp[x-1])
         qAExp[x] = qAExp[x-1] + deltaTime * quarentinedEquationExperimental(iAExp[x-1], qAExp[x-1], expBRate)
         sAExp[x] = sAExp[x-1] + deltaTime * susceptibleEquation(sAExp[x-1], iAExp[x-1])
         iAExp[x] = iAExp[x-1] + deltaTime * infectionEquationExperimental(sAExp[x-1], iAExp[x-1], expBRate)
+        #Checks to see if the increasing rate of quarentining is less than 100%.
         if expBRate < 1:
             expBRate = expBRate*rateIncrease
+        #If the increasing rate of quarentining is over 100% set it to 100%.
         else:
             expBRate = 1
 
+#Differential equation for the susceptible group.
 def susceptibleEquation(sIn,iIn):
     return ((-1*aRate)*(sIn*iIn))
 
+#Differential equation for the quarentined group.
 def quarentinedEquation(iIn, qIn):
     return ((bRate*iIn)-(gRate*qIn))
 
+#Differential equation for the quarentined group applying an increasing rate of quarentining.
 def quarentinedEquationExperimental(iIn, qIn, bIn):
     return ((bIn*iIn)-(gRate*qIn))
 
+#Differential equation for the infected group.
 def infectionEquation(sIn, iIn):
     return ((aRate*sIn*iIn)-(bRate*iIn)-(dRate*iIn))
 
+#Differential equation for the infected group applying an increasing rate of quarentining.
 def infectionEquationExperimental(sIn, iIn, bIn):
     return ((aRate*sIn*iIn)-(bIn*iIn)-(dRate*iIn))
 
+#Differential equation for the recovered group.
 def recoveredEquation(iIn, qIn):
     return ((dRate*iIn)+(gRate*qIn))
-    
+
+#Updates the rate at which rate of quarentining increases and runs a function to update the graph.
 def updateRate(val):
     global rateIncrease
     rateIncrease = val
     updateLines()
     return
 
+#Changes the group that is displayed on the graph, then begins the process to update the graph.
 def updateLineType(val):
     global lineType
     if (val == "Susceptible"):
@@ -104,9 +118,9 @@ def updateLineType(val):
     elif (val == "Recovered"):
         lineType = 4
     updateLines()
-    updateLines()
     return
 
+#Clears the graph, recalculates the arrays, then displays the correct group.
 def updateLines():
     #Reset graph and set limits on axes.
     ax.cla()
@@ -125,6 +139,7 @@ def updateLines():
         recoveredGraph()
     return
 
+#Displays the susceptible group on the graph.
 def susceptibleGraph():
     global control, experimental, difference
     #Setting up subplot.
@@ -152,7 +167,8 @@ def susceptibleGraph():
         yDifference.append(abs(yExperimental[i] - yControl[i]))
     difference, = ax.plot(xDifference, yDifference)
     ax.legend([control,experimental,difference], ['Control','Experimental', 'Difference'])
-    
+
+#Displays the quarentined group on the graph.
 def quarantinedGraph():
     global control, experimental, difference
     #Setting up subplot.
@@ -181,6 +197,7 @@ def quarantinedGraph():
     difference, = ax.plot(xDifference, yDifference)
     ax.legend([control,experimental,difference], ['Control','Experimental', 'Difference'])
 
+#Displays the infected group on the graph.
 def infectedGraph():
     global control, experimental, difference
     #Setting up subplot.
@@ -208,7 +225,8 @@ def infectedGraph():
         yDifference.append(abs(yExperimental[i] - yControl[i]))
     difference, = ax.plot(xDifference, yDifference)
     ax.legend([control,experimental,difference], ['Control','Experimental', 'Difference'])
-    
+
+#Displays the recovered group on the graph.   
 def recoveredGraph():
     global control, experimental, difference
     #Setting up subplot.
@@ -242,18 +260,23 @@ euler()
 #Graphs the susceptible population.
 susceptibleGraph()
 
+#Sets up the widget color.
 axcolor = 'white'
+
+#Sets up the slider widget.
 axSize = plt.axes([0.20, 0.1, 0.65, 0.03], axisbg=axcolor)
 xSize = Slider(axSize, 'Rate Increasing', 0.95, 1.05, valinit=rateIncrease)
 xSize.on_changed(updateRate)
 
+#Sets up the radiobutton widget.
 rax = plt.axes([0.025, 0.7, 0.18, 0.15], axisbg=axcolor)
 radio = RadioButtons(rax, ('Susceptible', 'Quarantined', 'Infected', 'Recovered'), active=0)
 radio.on_clicked(updateLineType)
 
-
-
+#Prepares the graph to be displayed.
 ax.grid(True)
 ax.axhline(0, color='black', lw=2)
 ax.axvline(0, color='black', lw=2)
+
+#Displays the graph.
 plt.show()

@@ -1,0 +1,137 @@
+#Christopher Marotta, William Adu-Jamfi, Aidan Horton, Clare Cocker, and Lauren Chase
+#April 20, 2020
+#S-Cubed H1N1 Graph
+
+#Importing Libraries
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.widgets import Slider, Button, RadioButtons
+
+#Sets default values for MatPlotLib Widgets
+lineType = 1
+rateIncrease = 1.00
+
+#Setting up the graph.
+fig, ax = plt.subplots()
+ax.set_title("H1N1 Infection Status")
+ax.set_xlabel("Time")
+ax.set_ylabel("Animals")
+plt.subplots_adjust(left=0.30, right=0.95, bottom=0.25)
+
+a = 0
+deltaTime = .01
+n = 10000
+b = n*deltaTime
+
+rA = np.zeros(n)
+fA = np.zeros(n)
+
+def euler():
+    rA[0] = 55
+    fA[0] = 10
+    for x in range(1, n):
+        rA[x] = rA[x-1] + deltaTime * rabbitPopulation(rA[x-1], fA[x-1])
+        fA[x] = fA[x-1] + deltaTime * quarentinedEquation(rA[x-1], fA[x-1])
+
+def rabbitPopulation(x,y):
+    return ((.08*x)-(.04*x*y))
+
+def quarentinedEquation(x, y):
+    return ((-0.3*y)+(.006*x*y))
+    
+def updateRate(val):
+    global rateIncrease
+    rateIncrease = val
+    updateLines()
+    return
+
+def updateLineType(val):
+    global lineType
+    if (val == "Susceptible"):
+        lineType = 1
+    elif (val == "Quarantined"):
+        lineType = 2
+    elif (val == "Infected"):
+        lineType = 3
+    elif (val == "Recovered"):
+        lineType = 4
+    updateLines()
+    updateLines()
+    return
+
+def updateLines():
+    #Reset graph and set limits on axes.
+    ax.cla()
+    ax.set_ylim([0,20000])
+    ax.set_xlim([0,100])
+    euler()
+    
+    fig.canvas.draw_idle()
+    if (lineType == 1):
+        susceptibleGraph()
+    elif (lineType == 2):
+        quarantinedGraph()
+    elif (lineType == 3):
+        infectedGraph()
+    elif (lineType == 4):
+        recoveredGraph()
+    return
+
+def foxesGraph():
+    global control, experimental, difference
+    #Setting up subplot.
+    ax.grid(True)
+    ax.axhline(0, color='black', lw=2)
+    ax.axvline(0, color='black', lw=2)
+    ax.set_title("H1N1 Infection Status [Susceptible]")
+    ax.set_xlabel("Time")
+    ax.set_ylabel("People")
+    
+    #Displaying the control group.
+    xControl = np.linspace(a,b,n)
+    yControl = fA
+    control, = ax.plot(xControl, yControl)
+
+    ax.legend([control,experimental,difference], ['Control','Experimental', 'Difference'])
+    
+def rabbitsGraph():
+    global control, experimental, difference
+    #Setting up subplot.
+    ax.grid(True)
+    ax.axhline(0, color='black', lw=2)
+    ax.axvline(0, color='black', lw=2)
+    ax.set_title("H1N1 Infection Status [Quarantined]")
+    ax.set_xlabel("Time")
+    ax.set_ylabel("People")
+    
+    #Displaying the control group.
+    xControl = np.linspace(a,b,n)
+    yControl = rA
+    control, = ax.plot(xControl, yControl)
+
+    ax.legend([control,experimental,difference], ['Control','Experimental', 'Difference'])
+
+
+    
+
+
+#Gets everything started by calculating the datasets before anything is graphed.
+euler()
+#Graphs the susceptible population.
+foxesGraph()
+rabbitsGraph()
+axcolor = 'white'
+axSize = plt.axes([0.20, 0.1, 0.65, 0.03], axisbg=axcolor)
+xSize = Slider(axSize, 'Rate Increasing', 0.95, 1.05, valinit=rateIncrease)
+xSize.on_changed(updateRate)
+
+rax = plt.axes([0.025, 0.7, 0.18, 0.15], axisbg=axcolor)
+radio = RadioButtons(rax, ('Susceptible', 'Quarantined', 'Infected', 'Recovered'), active=0)
+radio.on_clicked(updateLineType)
+
+
+
+ax.grid(True)
+ax.axhline(0, color='black', lw=2)
+ax.axvline(0, color='black', lw=2)
+plt.show()
