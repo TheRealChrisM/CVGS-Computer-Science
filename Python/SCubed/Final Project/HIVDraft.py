@@ -41,12 +41,11 @@ virusParticleArrayExp = np.zeros(n)
 #Applies euler's method to the control equations.
 def euler():
     #Sets up initial values for the arrays.
-    healthyArray[0] = 1000
+    healthyArray[0] = 500
     infectedArray[0] = 0
-    virusParticleArray[0] = 500
+    virusParticleArray[0] = (10**-3)
     #Begins actually applying Euler's method through a for loop.
     for x in range(1, n):
-        print(x)
         healthyArray[x] = healthyArray[x-1] + deltaTime * healthyEquation(healthyArray[x-1], virusParticleArray[x-1])
         infectedArray[x] = infectedArray[x-1] + deltaTime * infectedEquation(healthyArray[x-1], virusParticleArray[x-1], infectedArray[x-1])
         virusParticleArray[x] = virusParticleArray[x-1] + deltaTime * virusParticleEquation(infectedArray[x-1], virusParticleArray[x-1])
@@ -56,10 +55,10 @@ def euler():
 #Applies eulers method to the experimental equations.
 def eulerExperimental():
     #Sets up initial values for the arrays.
-    healthyArrayExp[0] = 1000
+    healthyArrayExp[0] = 500
     infectedArrayExp[0] = 0
-    virusParticleArrayExp[0] = 500
-    expBRate = kRate
+    virusParticleArrayExp[0] = (10**-3)
+    expKRate = kRate
     #Begins actually applying Euler's method through a for loop.
     for x in range(1,n):
         healthyArrayExp[x] = healthyArrayExp[x-1] + deltaTime * healthyEquationExperimental(healthyArrayExp[x-1], virusParticleArrayExp[x-1], expKRate)
@@ -97,14 +96,12 @@ def updateRate(val):
 #Changes the group that is displayed on the graph, then begins the process to update the graph.
 def updateLineType(val):
     global lineType
-    if (val == "Susceptible"):
+    if (val == "Healthy"):
         lineType = 1
-    elif (val == "Quarantined"):
-        lineType = 2
     elif (val == "Infected"):
+        lineType = 2
+    elif (val == "Virus Particles"):
         lineType = 3
-    elif (val == "Recovered"):
-        lineType = 4
     updateLines()
     return
 
@@ -112,19 +109,17 @@ def updateLineType(val):
 def updateLines():
     #Reset graph and set limits on axes.
     ax.cla()
-    ax.set_ylim([0,20000])
+    #ax.set_ylim([0,20000])
     ax.set_xlim([0,100])
     euler()
     
     fig.canvas.draw_idle()
     if (lineType == 1):
-        susceptibleGraph()
+        healthyCellsGraph()
     elif (lineType == 2):
-        quarantinedGraph()
+        infectedCellsGraph()
     elif (lineType == 3):
-        infectedGraph()
-    elif (lineType == 4):
-        recoveredGraph()
+        virusParticleGraph()
     return
 
 #Displays the susceptible group on the graph.
@@ -145,7 +140,7 @@ def healthyCellsGraph():
 
     #Displaying the experimental group.
     xExperimental = np.linspace(a, b, n)
-    yExperimental = healthyArrayExp
+    yExperimental = healthyArray
     experimental, = ax.plot(xExperimental, yExperimental)
 
     #Displaying the difference between the two equations.
@@ -174,7 +169,7 @@ def infectedCellsGraph():
 
     #Displaying the experimental group.
     xExperimental = np.linspace(a, b, n)
-    yExperimental = infectedArrayExp
+    yExperimental = infectedArray
     experimental, = ax.plot(xExperimental, yExperimental)
 
     #Displaying the difference between the two equations.
@@ -203,7 +198,7 @@ def virusParticleGraph():
 
     #Displaying the experimental group.
     xExperimental = np.linspace(a, b, n)
-    yExperimental = virusParticleArrayExp
+    yExperimental = virusParticleArray
     experimental, = ax.plot(xExperimental, yExperimental)
 
     #Displaying the difference between the two equations.
@@ -217,7 +212,7 @@ def virusParticleGraph():
 #Gets everything started by calculating the datasets before anything is graphed.
 euler()
 #Graphs the susceptible population.
-susceptibleGraph()
+healthyCellsGraph()
 
 #Sets up the widget color.
 axcolor = 'white'
@@ -228,8 +223,8 @@ xSize = Slider(axSize, 'Rate Increasing', 0.95, 1.05, valinit=rateIncrease)
 xSize.on_changed(updateRate)
 
 #Sets up the radiobutton widget.
-rax = plt.axes([0.025, 0.7, 0.18, 0.15], axisbg=axcolor)
-radio = RadioButtons(rax, ('Susceptible', 'Quarantined', 'Infected', 'Recovered'), active=0)
+rax = plt.axes([0.025, 0.7, 0.20, 0.15], axisbg=axcolor)
+radio = RadioButtons(rax, ('Healthy', 'Infected', 'Virus Particles'), active=0)
 radio.on_clicked(updateLineType)
 
 #Prepares the graph to be displayed.
