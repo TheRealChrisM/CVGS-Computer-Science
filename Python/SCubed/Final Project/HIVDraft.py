@@ -140,7 +140,7 @@ def healthyCellsGraph():
 
     #Displaying the experimental group.
     xExperimental = np.linspace(a, b, n)
-    yExperimental = healthyArray
+    yExperimental = healthyArrayExp
     experimental, = ax.plot(xExperimental, yExperimental)
 
     #Displaying the difference between the two equations.
@@ -169,7 +169,7 @@ def infectedCellsGraph():
 
     #Displaying the experimental group.
     xExperimental = np.linspace(a, b, n)
-    yExperimental = infectedArray
+    yExperimental = infectedArrayExp
     experimental, = ax.plot(xExperimental, yExperimental)
 
     #Displaying the difference between the two equations.
@@ -198,7 +198,7 @@ def virusParticleGraph():
 
     #Displaying the experimental group.
     xExperimental = np.linspace(a, b, n)
-    yExperimental = virusParticleArray
+    yExperimental = virusParticleArrayExp
     experimental, = ax.plot(xExperimental, yExperimental)
 
     #Displaying the difference between the two equations.
