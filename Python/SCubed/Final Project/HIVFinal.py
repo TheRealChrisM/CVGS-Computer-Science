@@ -1,6 +1,6 @@
 #Christopher Marotta, William Adu-Jamfi, Aidan Horton, Clare Cocker, and Lauren Chase
-#April 20, 2020
-#S-Cubed H1N1 Graph
+#May 1, 2020
+#S-Cubed HIV Graph
 
 #Importing Libraries
 import numpy as np
@@ -70,29 +70,29 @@ def eulerExperimental():
         virusParticleArrayExp[x] = virusParticleArrayExp[x-1] + deltaTime * virusParticleEquation(infectedArrayExp[x-1], virusParticleArrayExp[x-1])
         if virusParticleArrayExp[x] < 0:
             virusParticleArrayExp[x] = 0
-        #Checks to see if the increasing rate of quarentining is less than 100%.
-        #if expKRate < 1:
         expKRate = expKRate*rateIncrease
-        #If the increasing rate of quarentining is over 100% set it to 100%.
-        #else:
-         #   expKRate = 1
 
+#Differential equation for the healthy cells group.
 def healthyEquation(tIn, vIn):
     return ((lambdaRate) - (muRate*tIn) - (kRate*tIn*vIn))
 
+#Differential equation for the infected cells group.
 def infectedEquation(tIn, vIn, iIn):
     return ((kRate*tIn*vIn) - (deltaRate*iIn))
 
+#Differential equation for the virus particle group.
 def virusParticleEquation(iIn, vIn):
     return ((pRate*iIn)-(cRate*vIn))
 
+#Differential equation for the healthy cells equation that applies a decreasing rate of infection over time.
 def healthyEquationExperimental(tIn, vIn, expRate):
     return ((lambdaRate) - (muRate*tIn) - ((expRate)*tIn*vIn))
 
+#Differential equation for the infected cells equation that applies a decreasing rate of infection over time.
 def infectedEquationExperimental(tIn, vIn, iIn, expRate):
     return (((expRate)*tIn*vIn) - (deltaRate*iIn))
 
-#Updates the rate at which rate of quarentining increases and runs a function to update the graph.
+#Updates the rate at which rate of infection decreases and runs a function to update the graph.
 def updateRate(val):
     global rateIncrease
     rateIncrease = val
@@ -115,10 +115,12 @@ def updateLineType(val):
 def updateLines():
     #Reset graph and set limits on axes.
     ax.cla()
-    #ax.set_ylim([0,20000])
     ax.set_xlim([0,60])
+
+    #Recalculates the arrays.
     euler()
-    
+
+    #Displays the correct graph.
     fig.canvas.draw_idle()
     if (lineType == 1):
         healthyCellsGraph()
@@ -128,7 +130,7 @@ def updateLines():
         virusParticleGraph()
     return
 
-#Displays the susceptible group on the graph.
+#Displays the healthy cells group on the graph.
 def healthyCellsGraph():
     global control, experimental, difference
     #Setting up subplot.
@@ -157,7 +159,7 @@ def healthyCellsGraph():
     difference, = ax.plot(xDifference, yDifference)
     ax.legend([control,experimental,difference], ['Control','Experimental', 'Difference'])
 
-#Displays the quarentined group on the graph.
+#Displays the infected cells group on the graph.
 def infectedCellsGraph():
     global control, experimental, difference
     #Setting up subplot.
@@ -186,7 +188,7 @@ def infectedCellsGraph():
     difference, = ax.plot(xDifference, yDifference)
     ax.legend([control,experimental,difference], ['Control','Experimental', 'Difference'])
 
-#Displays the infected group on the graph.
+#Displays the virus particle group on the graph.
 def virusParticleGraph():
     global control, experimental, difference
     #Setting up subplot.
@@ -217,7 +219,7 @@ def virusParticleGraph():
 
 #Gets everything started by calculating the datasets before anything is graphed.
 euler()
-#Graphs the susceptible population.
+#Graphs the healthy cell population.
 healthyCellsGraph()
 
 #Sets up the widget color.
